@@ -43,8 +43,9 @@ export default class ExampleExtension extends Extension {
                 this._enable();
             else
                 this._updateInfo();
-        } else if (this._indicator)
+        } else if (this._indicator) {
             this._disable();
+        }
     }
 
     _enable() {
