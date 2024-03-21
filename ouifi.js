@@ -52,14 +52,20 @@ class Trip {
     }
 }
 
-// Check if connected to onboard Wi-Fi
+/**
+ * Check if connected to onboard Wi-Fi.
+ * @returns {boolean} Connection status.
+ */
 export function connected() {
     const [, out] = GLib.spawn_command_line_sync('nmcli connection show --active');
     const wifiInfo = out.toString();
     return wifiInfo.includes('_SNCF_WIFI_INOUI');
 }
 
-// Get train speed from API endpoint
+/**
+ * Get train speed from API endpoint.
+ * @returns {Promise} Speed in km/h.
+ */
 export async function speed() {
     return new Promise((resolve, reject) => {
         let _httpSession = new Soup.Session();
@@ -97,7 +103,10 @@ function trip() {
     });
 }
 
-// Return trip details, ready for display in pango markup
+/**
+ * Return trip details, ready for display in pango markup.
+ * @returns {string} Trip details in pango markup.
+ */
 export async function displayTrip() {
     try {
         const tripDataAwait = await trip();
