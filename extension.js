@@ -39,16 +39,12 @@ export default class ExampleExtension extends Extension {
         // Check if connected before enabling the extension
         if (Ouifi.connected()) {
             // Enable the extension if not already enabled
-            if (!this._indicator) {
+            if (!this._indicator)
                 this._enable();
-            } else {
+            else
                 this._updateInfo();
-            }
-        } else {
-            if (this._indicator) {
-                this._disable();
-            }
-        }
+        } else if (this._indicator)
+            this._disable();
     }
 
     _enable() {
