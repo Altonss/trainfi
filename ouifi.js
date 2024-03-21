@@ -39,7 +39,7 @@ class Stop {
                         ? ['~', 'yellow']
                         : ['·', 'white'];
 
-        return `<span foreground="${color}"><b>${status}</b></span> ${this.label.replace('&', '&amp;')} `;
+        return `<span foreground="${color}"><b>${status}</b></span> ${this.label.replace(/&/g, '&amp;')} `;
     }
 }
 
