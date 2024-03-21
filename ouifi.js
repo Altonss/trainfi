@@ -59,28 +59,28 @@ export function connected() {
 }
 
 export async function speed() {
-  return new Promise((resolve, reject) => {
-      let _httpSession = new Soup.Session();
-      let _message = Soup.Message.new("GET", 'https://wifi.sncf/router/api/train/gps');
+    return new Promise((resolve, reject) => {
+        let _httpSession = new Soup.Session();
+        let _message = Soup.Message.new('GET', 'https://wifi.sncf/router/api/train/gps');
 
-      _httpSession.send_and_read_async(_message, GLib.PRIORITY_DEFAULT, null, (sess, result) => {
-          try {
-              let response = sess.send_and_read_finish(result).get_data();
-              let speedMs = JSON.parse(response)["speed"];
-              let speedVal = Math.round(speedMs * 3.6);
-              resolve(speedVal);
-          } catch (e) {
-              sess.abort();
-              reject(e);
-          }
-      });
-  });
+        _httpSession.send_and_read_async(_message, GLib.PRIORITY_DEFAULT, null, (sess, result) => {
+            try {
+                let response = sess.send_and_read_finish(result).get_data();
+                let speedMs = JSON.parse(response)["speed"];
+                let speedVal = Math.round(speedMs * 3.6);
+                resolve(speedVal);
+            } catch (e) {
+                sess.abort();
+                reject(e);
+            }
+        });
+    });
 }
 
 function trip() {
     return new Promise((resolve, reject) => {
         let _httpSession = new Soup.Session();
-        let _message = Soup.Message.new("GET", 'https://wifi.sncf/router/api/train/details');
+        let _message = Soup.Message.new('GET', 'https://wifi.sncf/router/api/train/details');
 
         _httpSession.send_and_read_async(_message, GLib.PRIORITY_DEFAULT, null, (sess, result) => {
             try {
@@ -98,7 +98,7 @@ function trip() {
 export async function displayTrip() {
     try {
         const tripDataAwait = await trip();
-        let tripData = new Trip(tripDataAwait["stops"]);
+        let tripData = new Trip(tripDataAwait['stops']);
         const formattedStops = tripData.stops.map(stop => `${stop.pangoTheoric()} ${stop.pangoReal()} ${stop.pangoFormatedLabel()}`).join('\n');
         return formattedStops;
     } catch (error) {
