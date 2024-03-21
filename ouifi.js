@@ -54,6 +54,7 @@ class Trip {
 
 /**
  * Check if connected to onboard Wi-Fi.
+ *
  * @returns {boolean} Connection status.
  */
 export function connected() {
@@ -64,6 +65,7 @@ export function connected() {
 
 /**
  * Get train speed from API endpoint.
+ *
  * @returns {Promise} Speed in km/h.
  */
 export async function speed() {
@@ -105,6 +107,7 @@ function trip() {
 
 /**
  * Return trip details, ready for display in pango markup.
+ *
  * @returns {string} Trip details in pango markup.
  */
 export async function displayTrip() {
