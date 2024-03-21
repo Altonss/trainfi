@@ -1,0 +1,8 @@
+{
+  "uuid": "trainfi@altonss.github.io",
+  "name": "TrainFi",
+  "description": "Display current train trip metadata when connected to onboard Wi-Fi.\nCurrently only supports SNCF TGV INOUI.",
+  "shell-version": ["45", "46"],
+  "url": "https://github.com/altonss/trainfi",
+  "version": 0.1
+}
