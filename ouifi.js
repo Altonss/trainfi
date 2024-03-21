@@ -1,7 +1,6 @@
 import GLib from 'gi://GLib';
 import Soup from 'gi://Soup';
 
-
 class Stop {
     constructor(label, theoricDate, realDate, isDelayed, isCreated, isDiversion, isRemoved) {
         this.label = label;
@@ -29,15 +28,25 @@ class Stop {
     }
 
     pangoFormatedLabel() {
-        const [status, color] = this.inThePast()
-            ? [' ', 'grey']
-            : this.isCreated
-                ? ['+', 'green']
-                : this.isRemoved
-                    ? ['-', 'red']
-                    : this.isDiversion
-                        ? ['~', 'yellow']
-                        : ['·', 'white'];
+        let status = ' ';
+        let color = 'grey';
+
+        if (this.inThePast()) {
+            status = ' ';
+            color = 'grey';
+        } else if (this.isCreated) {
+            status = '+';
+            color = 'green';
+        } else if (this.isRemoved) {
+            status = '-';
+            color = 'red';
+        } else if (this.isDiversion) {
+            status = '~';
+            color = 'yellow';
+        } else {
+            status = '·';
+            color = 'white';
+        }
 
         return `<span foreground="${color}"><b>${status}</b></span> ${this.label.replace(/&/g, '&amp;')} `;
     }
@@ -68,7 +77,7 @@ export function connected() {
  *
  * @returns {Promise} Speed in km/h.
  */
-export async function speed() {
+export function speed() {
     return new Promise((resolve, reject) => {
         let _httpSession = new Soup.Session();
         let _message = Soup.Message.new('GET', 'https://wifi.sncf/router/api/train/gps');
