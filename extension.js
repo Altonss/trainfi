@@ -1,4 +1,3 @@
-import Gio from 'gi://Gio';
 import GLib from 'gi://GLib';
 import Clutter from 'gi://Clutter';
 import St from 'gi://St';
@@ -30,7 +29,7 @@ export default class ExampleExtension extends Extension {
         // Disable the extension indicator
         this._disable();
     }
-    
+
     _disable() {
         this._indicator?.destroy();
         this._indicator = null;
@@ -51,7 +50,7 @@ export default class ExampleExtension extends Extension {
             }
         }
     }
-    
+
     _enable() {
         // Create a panel button
         this._indicator = new PanelMenu.Button(0.0, this.metadata.name, false);
@@ -60,28 +59,27 @@ export default class ExampleExtension extends Extension {
             y_align: Clutter.ActorAlign.CENTER,
         });
         this._indicator.add_child(this._label);
-	
+
         // Add the indicator to the panel
         Main.panel.addToStatusArea(this.uuid, this._indicator);
-        
-        this.tripDetails = new PopupMenu.PopupMenuItem("No trip info available for now...",{reactive:false});
+
+        this.tripDetails = new PopupMenu.PopupMenuItem('No trip info available for now...', {reactive:false});
         this.tripDetails.label.style = 'font-family: monospace; background-color: black;';
         this._indicator.menu.addMenuItem(this.tripDetails);
-        
+
         this._updateInfo();
     }
-    
+
     async _updateInfo() {
-        
         // Update speed
         try {
             const speed = await Ouifi.speed();
-            this._label.text = `🚄 ${speed} km/h`;
+            this._label.text = '🚄 ${speed} km/h';
         } catch (error) {
-            this._label.text = `🚄 ??? km/h`;
-            console.error("Error occurred while fetching speed:", error);
+            this._label.text = '🚄 ??? km/h';
+            console.error('Error occurred while fetching speed:', error);
         }
-        
+
         // Update trip details
         Ouifi.displayTrip().then(tripDetailsMarkup => {
             this.tripDetails.label.clutter_text.set_markup(tripDetailsMarkup);
@@ -89,5 +87,4 @@ export default class ExampleExtension extends Extension {
             logError(error, 'Failed to fetch trip details.');
         });
     }
-    
 }
