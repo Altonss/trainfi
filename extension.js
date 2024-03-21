@@ -63,7 +63,7 @@ export default class ExampleExtension extends Extension {
         // Add the indicator to the panel
         Main.panel.addToStatusArea(this.uuid, this._indicator);
 
-        this.tripDetails = new PopupMenu.PopupMenuItem('No trip info available for now...', {reactive:false});
+        this.tripDetails = new PopupMenu.PopupMenuItem('No trip info available for now...', {reactive: false});
         this.tripDetails.label.style = 'font-family: monospace; background-color: black;';
         this._indicator.menu.addMenuItem(this.tripDetails);
 
@@ -73,8 +73,8 @@ export default class ExampleExtension extends Extension {
     async _updateInfo() {
         // Update speed
         try {
-            const speed = await Ouifi.speed();
-            this._label.text = '🚄 ${speed} km/h';
+            const speedValue = await Ouifi.speed();
+            this._label.text = `🚄 ${speedValue} km/h`;
         } catch (error) {
             this._label.text = '🚄 ??? km/h';
             console.error('Error occurred while fetching speed:', error);
