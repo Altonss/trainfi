@@ -7,7 +7,7 @@ import * as PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js';
 import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
 import * as Ouifi from './ouifi.js';
 
-export default class ExampleExtension extends Extension {
+export default class TrainFiExtension extends Extension {
     enable() {
         // Initial check and enable if connected
         this._checkAndEnable();
@@ -33,6 +33,8 @@ export default class ExampleExtension extends Extension {
     _disable() {
         this._indicator?.destroy();
         this._indicator = null;
+        this._label = null;
+        this.tripDetails = null;
     }
 
     _checkAndEnable() {
@@ -81,7 +83,7 @@ export default class ExampleExtension extends Extension {
         Ouifi.displayTrip().then(tripDetailsMarkup => {
             this.tripDetails.label.clutter_text.set_markup(tripDetailsMarkup);
         }).catch(error => {
-            logError(error, 'Failed to fetch trip details.');
+            console.error('Failed to fetch trip details: ', error);
         });
     }
 }

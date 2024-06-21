@@ -126,7 +126,7 @@ export async function displayTrip() {
         const formattedStops = tripData.stops.map(stop => `${stop.pangoTheoric()} ${stop.pangoReal()} ${stop.pangoFormatedLabel()}`).join('\n');
         return formattedStops;
     } catch (error) {
-        log(`Could not fetch trip details: ${error}`);
+        console.log(`Could not fetch trip details: ${error}`);
         return 'Error fetching trip details';
     }
 }
